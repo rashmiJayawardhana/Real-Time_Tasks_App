@@ -4,5 +4,5 @@
     "strict": true,
     "types": ["jest", "react-native"]
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "./src", "App.tsx"]
 }
