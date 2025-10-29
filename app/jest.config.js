@@ -1,7 +1,10 @@
 module.exports = {
   preset: 'jest-expo',
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
+  testEnvironment: 'node',
+  setupFilesAfterEnv: [
+  '@testing-library/jest-native/extend-expect',
+  '<rootDir>/jest.setup.js'
+],
   transform: {
     '^.+\\.[jt]sx?$': 'babel-jest',
   },

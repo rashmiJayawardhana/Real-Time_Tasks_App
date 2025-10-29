@@ -1,7 +1,7 @@
 // app/src/services/api.ts
 import { Message, User } from '../types';
 
-const API_URL = 'http://192.168.8.102:3000'; // Replace with your computer's IP
+const API_URL = 'http://192.168.8.103:3000'; // Replace with your computer's IP
 
 export const api = {
   async getMessages(limit: number = 50): Promise<Message[]> {
