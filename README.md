@@ -1,4 +1,4 @@
-# RN Expo Real-Time Tasks — Rashmi Jayawardhana
+# RN Expo Real-Time Tasks - Rashmi Jayawardhana
 
 ## Overview
 
