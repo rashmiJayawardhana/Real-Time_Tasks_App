@@ -1,7 +1,9 @@
 {
   "expo": {
-    "name": "app",
+    "name": "Real-Time Tasks App",
     "slug": "app",
+    "privacy": "public",
+    "description": "A real-time messaging app that allows users to send messages that appear instantly on all connected devices.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,7 +21,10 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "UIBackgroundModes": ["remote-notification"]
+        "UIBackgroundModes": [
+          "remote-notification",
+          "remote-notification"
+        ]
       }
     },
     "android": {
@@ -30,10 +35,24 @@
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "package": "com.rxshijayawardhana.app",
-      "permissions": ["android.permission.POST_NOTIFICATIONS"]
+      "permissions": [
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.POST_NOTIFICATIONS"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4e36dfea-2cbf-46ba-86fb-69db3318fa1e"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/4e36dfea-2cbf-46ba-86fb-69db3318fa1e"
     }
   }
 }

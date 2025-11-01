@@ -26,7 +26,6 @@ export default function LoginScreen({ navigation }: any) {
       Alert.alert('Error', 'Please enter a username');
       return;
     }
-
     setLoading(true);
     try {
       const user = await api.createUser(name.trim());

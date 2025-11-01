@@ -16,9 +16,7 @@ Notifications.setNotificationHandler({
 });
 
 
-/**
- * Request notification permissions from the user
- */
+// Request notification permissions from the user
 export async function registerForPushNotificationsAsync(): Promise<string | null> {
   let token: string | null = null;
 
@@ -72,9 +70,8 @@ export async function registerForPushNotificationsAsync(): Promise<string | null
   return token;
 }
 
-/**
- * Register push token with backend
- */
+
+// Register push token with backend
 export async function registerPushToken(userId: number, token: string): Promise<boolean> {
   try {
     const platform = Platform.OS as 'ios' | 'android' | 'web';
@@ -103,9 +100,8 @@ export async function registerPushToken(userId: number, token: string): Promise<
   }
 }
 
-/**
- * Unregister push token (on logout)
- */
+
+// Unregister push token (on logout)
 export async function unregisterPushToken(token: string): Promise<boolean> {
   try {
     const response = await fetch(`${API_URL}/api/push-tokens/${encodeURIComponent(token)}`, {
@@ -124,9 +120,8 @@ export async function unregisterPushToken(token: string): Promise<boolean> {
   }
 }
 
-/**
- * Setup notification listeners
- */
+
+// Setup notification listeners
 export function setupNotificationListeners(
   onNotificationReceived?: (notification: Notifications.Notification) => void,
   onNotificationTapped?: (response: Notifications.NotificationResponse) => void
@@ -150,9 +145,8 @@ export function setupNotificationListeners(
   };
 }
 
-/**
- * Schedule a local notification (for testing)
- */
+
+// Schedule a local notification (for testing)
 export async function scheduleLocalNotification(
   title: string,
   body: string,
@@ -165,34 +159,27 @@ export async function scheduleLocalNotification(
       data,
       sound: 'default',
     },
-    trigger: null, // Show immediately
+    trigger: null, 
   });
 }
 
-/**
- * Clear all notifications
- */
+
+// Clear all notifications
 export async function clearAllNotifications() {
   await Notifications.dismissAllNotificationsAsync();
 }
 
-/**
- * Get notification badge count
- */
+// Get notification badge count
 export async function getBadgeCount(): Promise<number> {
   return await Notifications.getBadgeCountAsync();
 }
 
-/**
- * Set notification badge count
- */
+// Set notification badge count
 export async function setBadgeCount(count: number) {
   await Notifications.setBadgeCountAsync(count);
 }
 
-/**
- * Clear notification badge
- */
+// Clear notification badge
 export async function clearBadge() {
   await Notifications.setBadgeCountAsync(0);
 }

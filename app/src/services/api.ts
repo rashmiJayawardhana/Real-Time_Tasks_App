@@ -39,7 +39,7 @@ export const api = {
     return response.json();
   },
 
-  // New: Get all users
+  // Get all users
   async getAllUsers(): Promise<any[]> {
     const response = await fetch(`${API_URL}/api/users`);
     if (!response.ok) {
@@ -48,7 +48,7 @@ export const api = {
     return response.json();
   },
 
-  // New: Get single user by ID
+  // Get single user by ID
   async getUser(userId: number): Promise<any> {
     const response = await fetch(`${API_URL}/api/users/${userId}`);
     if (!response.ok) {
@@ -57,7 +57,7 @@ export const api = {
     return response.json();
   },
 
-  // New: Get messages by user ID
+  // Get messages by user ID
   async getUserMessages(userId: number, limit: number = 50): Promise<Message[]> {
     const response = await fetch(`${API_URL}/api/users/${userId}/messages?limit=${limit}`);
     if (!response.ok) {
@@ -66,7 +66,7 @@ export const api = {
     return response.json();
   },
 
-  // Future: Delete message
+  // Delete message
   async deleteMessage(messageId: number): Promise<void> {
     const response = await fetch(`${API_URL}/api/messages/${messageId}`, {
       method: 'DELETE',
@@ -76,7 +76,7 @@ export const api = {
     }
   },
 
-  // Future: Update message
+  // Update message
   async updateMessage(messageId: number, text: string): Promise<Message> {
     const response = await fetch(`${API_URL}/api/messages/${messageId}`, {
       method: 'PUT',

@@ -1,5 +1,4 @@
 // app/src/screens/__tests__/MainScreen.test.tsx
-
 import React from 'react';
 import { render, waitFor, fireEvent } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
@@ -42,8 +41,7 @@ jest.mock('../../services/socket', () => ({
   disconnectSocket: jest.fn(),
 }));
 
-// 🔧 FIX: MOCK NAVIGATION
-// This was missing! MainScreen now requires a navigation prop
+// MOCK NAVIGATION
 const createMockNavigation = () => ({
   navigate: jest.fn(),
   goBack: jest.fn(),
@@ -61,7 +59,7 @@ const createMockNavigation = () => ({
   setOptions: jest.fn(),
 });
 
-// HELPER FUNCTION
+// HELPER FUNCTION TO CREATE MOCK REDUX STORE
 const createMockStore = (initialState = {}) => {
   return configureStore({
     reducer: { messages: messagesReducer },
@@ -82,11 +80,14 @@ const createMockStore = (initialState = {}) => {
 describe('MainScreen', () => {
   let mockNavigation: ReturnType<typeof createMockNavigation>;
 
+  // This runs before each test to reset all mocks
   beforeEach(() => {
     jest.clearAllMocks();
     mockNavigation = createMockNavigation();
   });
 
+  // TEST 1: Basic Rendering
+  // Verify that the screen renders with correct user information
   it('renders correctly with user info', async () => {
     const store = createMockStore();
     
@@ -102,6 +103,8 @@ describe('MainScreen', () => {
     });
   });
 
+  // TEST 2: Loading State
+  // Verify that loading indicator appears when data is being fetched
   it('shows loading indicator initially', async () => {
     const store = createMockStore({ loading: true, messages: [] });
     
@@ -116,6 +119,8 @@ describe('MainScreen', () => {
     });
   });
 
+  // TEST 3: Displaying Messages
+  // Verify that messages are displayed after successful fetch
   it('displays messages after loading', async () => {
     const mockMessages = [
       {
@@ -142,6 +147,8 @@ describe('MainScreen', () => {
     });
   });
 
+  // TEST 4: Empty State
+  // Verify that empty state message shows when there are no messages
   it('shows empty state when no messages', async () => {
     (api.getMessages as jest.Mock).mockResolvedValue([]);
 
@@ -159,6 +166,8 @@ describe('MainScreen', () => {
     });
   });
 
+  // TEST 5: Sending a Message
+  // Verify that user can type and send a message
   it('sends a message when send button is pressed', async () => {
     const store = createMockStore();
     
@@ -183,6 +192,8 @@ describe('MainScreen', () => {
     });
   });
 
+  // TEST 6: Socket Connection
+  // Verify that WebSocket listeners are set up correctly on mount
   it('connects to socket on mount', async () => {
     const store = createMockStore();
     
@@ -208,8 +219,9 @@ describe('MainScreen', () => {
     });
   });
 
+  // TEST 7: Input State Management
+  // Verify that input field value changes correctly
   it('handles input state correctly', async () => {
-    // Mock messages API so screen doesn’t stay in loading state
     (api.getMessages as jest.Mock).mockResolvedValue([]);
 
     const store = createMockStore();
@@ -235,6 +247,8 @@ describe('MainScreen', () => {
   });
 
 
+  // TEST 8: Sending Indicator
+  // Verify that loading indicator shows while message is being sent
   it('shows sending indicator while message is being sent', async () => {
     const store = createMockStore({ sending: true });
     
@@ -250,6 +264,8 @@ describe('MainScreen', () => {
     });
   });
 
+  // TEST 9: Navigate to Users List
+  // Verify that users button navigates to UsersList screen
   it('navigates to UsersList when users button is pressed', async () => {
     const store = createMockStore();
     
@@ -269,6 +285,8 @@ describe('MainScreen', () => {
     expect(mockNavigation.navigate).toHaveBeenCalledWith('UsersList');
   });
 
+  // TEST 10: Navigate to Settings
+  // Verify that settings button navigates to Settings screen
   it('navigates to Settings when settings button is pressed', async () => {
     const store = createMockStore();
     

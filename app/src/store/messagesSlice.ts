@@ -35,7 +35,6 @@ const messagesSlice = createSlice({
       state.messages = action.payload;
     },
     addMessage(state, action: PayloadAction<Message>) {
-      // Add to beginning (newest first)
       state.messages.unshift(action.payload);
     },
     setError(state, action: PayloadAction<string | null>) {

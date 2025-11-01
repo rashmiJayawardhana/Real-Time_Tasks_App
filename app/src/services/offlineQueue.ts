@@ -1,5 +1,4 @@
 // app/src/services/offlineQueue.ts
-// Offline Message Queue
 // Stores messages when offline and automatically sends them when back online.
  
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,7 +7,7 @@ import NetInfo from '@react-native-community/netinfo';
 const QUEUE_KEY = '@message_queue';
 
 export interface QueuedMessage {
-  id: string; // Temporary local ID
+  id: string; 
   userId: number;
   text: string;
   timestamp: number;
@@ -57,9 +56,7 @@ class OfflineQueue {
     }
   }
 
-  /**
-   * Add a message to the queue
-   */
+  // Add a message to the queue
   async enqueue(userId: number, text: string): Promise<string> {
     const message: QueuedMessage = {
       id: `temp_${Date.now()}_${Math.random()}`,
@@ -76,32 +73,24 @@ class OfflineQueue {
     return message.id;
   }
 
-  /**
-   * Remove a message from the queue
-   */
+  //Remove a message from the queue
   async dequeue(id: string) {
     this.queue = this.queue.filter((msg) => msg.id !== id);
     await this.saveQueue();
     this.notifyListeners();
   }
 
-  /**
-   * Get all queued messages
-   */
+  //Get all queued messages
   getQueue(): QueuedMessage[] {
     return [...this.queue];
   }
 
-  /**
-   * Check if there are pending messages
-   */
+  //Check if there are pending messages
   hasPendingMessages(): boolean {
     return this.queue.length > 0;
   }
 
-  /**
-   * Process all queued messages (send them to server)
-   */
+  //Process all queued messages (send them to server)
   async processQueue() {
     if (this.queue.length === 0) return;
 
@@ -142,9 +131,7 @@ class OfflineQueue {
     this.notifyListeners();
   }
 
-  /**
-   * Subscribe to queue changes
-   */
+  //Subscribe to queue changes
   subscribe(listener: (queue: QueuedMessage[]) => void) {
     this.listeners.push(listener);
     return () => {
@@ -156,9 +143,7 @@ class OfflineQueue {
     this.listeners.forEach((listener) => listener(this.getQueue()));
   }
 
-  /**
-   * Clear all queued messages (use with caution)
-   */
+  //Clear all queued messages (use with caution)
   async clear() {
     this.queue = [];
     await AsyncStorage.removeItem(QUEUE_KEY);

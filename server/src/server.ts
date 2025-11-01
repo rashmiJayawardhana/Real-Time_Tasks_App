@@ -5,7 +5,7 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import db from './db';
-import { Message, CreateMessageRequest, CreateUserRequest, ExpoPushResult } from './types';
+import { CreateMessageRequest, CreateUserRequest, ExpoPushResult } from './types';
 
 dotenv.config();
 
@@ -70,7 +70,7 @@ app.get('/health', (req: Request, res: Response) => {
   res.json({ status: 'ok' });
 });
 
-// 🔔 Register push token
+// Register push token
 app.post('/api/push-tokens', async (req: Request, res: Response) => {
   try {
     const { user_id, token, platform } = req.body;
@@ -98,7 +98,7 @@ app.post('/api/push-tokens', async (req: Request, res: Response) => {
   }
 });
 
-// 🔔 Delete push token (on logout)
+// Delete push token (on logout)
 app.delete('/api/push-tokens/:token', async (req: Request, res: Response) => {
   try {
     const token = req.params.token;
@@ -230,7 +230,7 @@ app.get('/api/messages', async (req: Request, res: Response) => {
   }
 });
 
-// Create message - WITH PUSH NOTIFICATIONS 🔔
+// Create message - WITH PUSH NOTIFICATIONS 
 app.post('/api/messages', async (req: Request, res: Response) => {
   try {
     const { user_id, text }: CreateMessageRequest = req.body;
@@ -264,7 +264,7 @@ app.post('/api/messages', async (req: Request, res: Response) => {
     // Broadcast to all connected clients via WebSocket
     io.emit('message:new', newMessage);
 
-    // 🔔 Send push notifications to all users EXCEPT the sender
+    // Send push notifications to all users EXCEPT the sender
     try {
       const [tokens] = await db.query<any[]>(
         `SELECT DISTINCT token
@@ -360,7 +360,7 @@ const PORT = process.env.PORT || 3000;
 if (process.env.NODE_ENV !== 'test') {
   httpServer.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-    console.log('🔔 Push notifications enabled');
+    console.log('Push notifications enabled');
   });
 }
 

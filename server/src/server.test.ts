@@ -12,11 +12,14 @@ jest.mock('./db');
 
 const mockDb = db as jest.Mocked<typeof db>;
 
+// API ENDPOINT TESTS
 describe('API Endpoint Tests', () => {
+  // SETUP - Runs before each test
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
+  // HEALTH CHECK ENDPOINT
   describe('GET /health', () => {
     it('should return ok status', async () => {
       const response = await request(app).get('/health');
@@ -26,6 +29,7 @@ describe('API Endpoint Tests', () => {
     });
   });
 
+  // GET MESSAGES ENDPOINT
   describe('GET /api/messages', () => {
     it('should return messages successfully', async () => {
       const mockDate = new Date('2025-10-31T07:24:45.120Z');
@@ -83,6 +87,7 @@ describe('API Endpoint Tests', () => {
     });
   });
 
+  // CREATE MESSAGE ENDPOINT
   describe('POST /api/messages', () => {
     it('should create a message successfully', async () => {
       const mockDate = new Date('2025-10-31T07:24:45.154Z');
@@ -176,6 +181,7 @@ describe('API Endpoint Tests', () => {
     });
   });
 
+  // CREATE USER ENDPOINT
   describe('POST /api/users', () => {
     it('should create a new user', async () => {
       const mockDate = new Date('2025-10-31T07:24:45.200Z');
@@ -254,6 +260,7 @@ describe('API Endpoint Tests', () => {
     });
   });
 
+  // INPUT VALIDATION & SECURITY
   describe('Input Validation', () => {
     it('should reject malformed JSON', async () => {
       const response = await request(app)
@@ -281,6 +288,7 @@ describe('API Endpoint Tests', () => {
     });
   });
 
+  // CORS CONFIGURATION
   describe('CORS', () => {
     it('should include CORS headers', async () => {
       const response = await request(app)
@@ -292,6 +300,7 @@ describe('API Endpoint Tests', () => {
   });
 });
 
+// DATABASE CONNECTION TESTS
 describe('Database Connection', () => {
   it('should export a valid pool object', () => {
     expect(db).toBeDefined();
@@ -299,6 +308,7 @@ describe('Database Connection', () => {
   });
 });
 
+// ERROR HANDLING TESTS
 describe('Error Handling', () => {
   it('should return 404 for unknown routes', async () => {
     const response = await request(app).get('/api/unknown');
@@ -316,6 +326,7 @@ describe('Error Handling', () => {
 
 });
 
+// CLEANUP - Runs after all tests
 afterAll(async () => {
   await httpServer.close(); // closes the Express HTTP server
 });
