@@ -15,19 +15,22 @@
       "jest",
       "react",
       "react-native",
+      "nativewind/types",
       "react-redux"
     ]
   },
+  "exclude": [
+    "index.js",
+    "node_modules"
+  ],
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "types/**/*.d.ts",
-    "**/*.js",
     "**/*.jsx",
     "App.tsx",
     "src",
-    "types",
-    "babel.config.js"
-, "tailwind.config.cjs"  ],
+    "types"
+  ],
   "extends": "expo/tsconfig.base"
 }

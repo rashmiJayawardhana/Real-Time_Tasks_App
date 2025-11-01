@@ -1,5 +1,4 @@
 // app/App.tsx
-import "./global.css";
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { loadUser, saveUser } from './src/services/storage';
