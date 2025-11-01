@@ -21,3 +21,26 @@ export interface CreateMessageRequest {
 export interface CreateUserRequest {
   name: string;
 }
+
+export interface PushToken {
+  id: number;
+  user_id: number;
+  token: string;
+  platform: 'ios' | 'android' | 'web';
+  created_at: Date;
+  last_used: Date;
+}
+
+export interface RegisterPushTokenRequest {
+  user_id: number;
+  token: string;
+  platform: 'ios' | 'android' | 'web';
+}
+
+export interface ExpoPushResult {
+  data?: {
+    status?: string;
+    details?: { error?: string };
+  };
+  errors?: any[];
+}

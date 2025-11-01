@@ -25,7 +25,11 @@ import { api } from '../services/api';
 import { getSocket } from '../services/socket';
 import { Message } from '../types';
 
-export default function MainScreen() {
+interface MainScreenProps {
+  navigation: any;
+}
+
+export default function MainScreen({ navigation }: MainScreenProps) {
   const dispatch = useDispatch();
   const { user, messages, loading, sending } = useSelector(
     (state: RootState) => state.messages
@@ -101,32 +105,41 @@ export default function MainScreen() {
     setRefreshing(false);
   };
 
+  const handleMessagePress = (message: Message) => {
+    navigation.navigate('MessageDetails', { message });
+  };
+
   const renderMessage = ({ item }: { item: Message }) => {
     const isOwnMessage = item.user_id === user?.id;
     return (
-      <View style={[styles.messageContainer, isOwnMessage ? styles.ownMessageContainer : styles.otherMessageContainer]}>
-        <View
-          style={[
-            styles.messageBubble,
-            isOwnMessage ? styles.ownMessageBubble : styles.otherMessageBubble,
-          ]}
-        >
-          {!isOwnMessage && (
-            <Text style={styles.userName}>{item.user_name}</Text>
-          )}
-          
-          <Text style={[styles.messageText, isOwnMessage ? styles.ownMessageText : styles.otherMessageText]}>
-            {item.text}
-          </Text>
-          
-          <Text style={[styles.timestamp, isOwnMessage ? styles.ownTimestamp : styles.otherTimestamp]}>
-            {new Date(item.created_at).toLocaleTimeString([], {
-              hour: '2-digit',
-              minute: '2-digit',
-            })}
-          </Text>
+      <TouchableOpacity
+        onLongPress={() => handleMessagePress(item)}
+        activeOpacity={0.7}
+      >
+        <View style={[styles.messageContainer, isOwnMessage ? styles.ownMessageContainer : styles.otherMessageContainer]}>
+          <View
+            style={[
+              styles.messageBubble,
+              isOwnMessage ? styles.ownMessageBubble : styles.otherMessageBubble,
+            ]}
+          >
+            {!isOwnMessage && (
+              <Text style={styles.userName}>{item.user_name}</Text>
+            )}
+            
+            <Text style={[styles.messageText, isOwnMessage ? styles.ownMessageText : styles.otherMessageText]}>
+              {item.text}
+            </Text>
+            
+            <Text style={[styles.timestamp, isOwnMessage ? styles.ownTimestamp : styles.otherTimestamp]}>
+              {new Date(item.created_at).toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
+            </Text>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -160,10 +173,21 @@ export default function MainScreen() {
               Hello, {user?.name}! 👋
             </Text>
           </View>
-          <View style={styles.avatar}>
-            <Text style={styles.avatarText}>
-              {user?.name?.charAt(0).toUpperCase()}
-            </Text>
+          <View style={styles.headerButtons}>
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => navigation.navigate('UsersList')}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.iconButtonText}>👥</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => navigation.navigate('Settings')}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.iconButtonText}>⚙️</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -289,7 +313,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 4,
   },
-  avatar: {
+  headerButtons: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  iconButton: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     width: 48,
     height: 48,
@@ -297,10 +325,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  avatarText: {
-    color: '#ffffff',
-    fontSize: 20,
-    fontWeight: 'bold',
+  iconButtonText: {
+    fontSize: 24,
   },
   messagesList: {
     flex: 1,
