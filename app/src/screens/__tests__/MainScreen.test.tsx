@@ -8,12 +8,6 @@ import messagesReducer from '../../store/messagesSlice';
 import MainScreen from '../MainScreen';
 import { api } from '../../services/api';
 
-// Mock environment variables
-jest.mock('@env', () => ({
-  API_URL: 'http://localhost:3000',
-  SOCKET_URL: 'http://localhost:3000',
-}));
-
 // MOCK API SERVICE
 jest.mock('../../services/api', () => ({
   api: {
@@ -215,32 +209,31 @@ describe('MainScreen', () => {
   });
 
   it('handles input state correctly', async () => {
+    // Mock messages API so screen doesn’t stay in loading state
+    (api.getMessages as jest.Mock).mockResolvedValue([]);
+
     const store = createMockStore();
-    
-    const { getByPlaceholderText } = render(
+
+    const { getByPlaceholderText, queryByText } = render(
       <Provider store={store}>
         <MainScreen navigation={mockNavigation} />
       </Provider>
     );
 
+    // Wait for loading indicator to disappear
+    await waitFor(() => expect(queryByText('Loading messages...')).toBeNull());
+
     const input = getByPlaceholderText('Type a message...');
-    
-    await waitFor(() => {
-      expect(input.props.value).toBe('');
-    });
+
+    expect(input.props.value).toBe('');
 
     fireEvent.changeText(input, 'Test message');
-    
-    await waitFor(() => {
-      expect(input.props.value).toBe('Test message');
-    });
-    
+    expect(input.props.value).toBe('Test message');
+
     fireEvent.changeText(input, '');
-    
-    await waitFor(() => {
-      expect(input.props.value).toBe('');
-    });
+    expect(input.props.value).toBe('');
   });
+
 
   it('shows sending indicator while message is being sent', async () => {
     const store = createMockStore({ sending: true });
