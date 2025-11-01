@@ -7,7 +7,7 @@ A real-time collaborative messaging application built with React Native (Expo) a
 ## Demo Links
 
 - **Video Walkthrough**: 
-- **Live Expo App**: https://expo.dev/preview/update?message=Updated+app.json+details+and+icons&updateRuntimeVersion=1.0.0&createdAt=2025-11-01T15%3A13%3A41.469Z&slug=exp&projectId=4e36dfea-2cbf-46ba-86fb-69db3318fa1e&group=fb130071-63a6-464e-a314-74dbf16c867d
+- **Live Expo App**: https://expo.dev/preview/update?message=Updated+.env+for+host+backend&updateRuntimeVersion=1.0.0&createdAt=2025-11-01T18%3A44%3A49.741Z&slug=exp&projectId=4e36dfea-2cbf-46ba-86fb-69db3318fa1e&group=271d6f0b-b76d-4489-85b5-12b8db3219cb
 - **Backend API**: http://13.60.226.207:3000  (AWS EC2 Deployment)
 
 ## Tech Stack
