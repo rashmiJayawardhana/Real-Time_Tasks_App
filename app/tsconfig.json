@@ -3,7 +3,7 @@
     "target": "esnext",
     "module": "esnext",
     "jsx": "react-native",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -11,7 +11,23 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "types": ["jest", "react", "react-native", "react-redux"]
+    "types": [
+      "jest",
+      "react",
+      "react-native",
+      "react-redux"
+    ]
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "App.tsx", "src", "babel.config.cjs"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "types/**/*.d.ts",
+    "**/*.js",
+    "**/*.jsx",
+    "App.tsx",
+    "src",
+    "types",
+    "babel.config.js"
+, "tailwind.config.cjs"  ],
+  "extends": "expo/tsconfig.base"
 }

@@ -124,7 +124,11 @@ export default function MainScreen() {
   if (loading && messages.length === 0) {
     return (
       <View style={styles.centerContainer}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator 
+          size="large" 
+          color="#007AFF" 
+          testID="activity-indicator"
+        />
         <Text style={styles.loadingText}>Loading messages...</Text>
       </View>
     );
@@ -178,7 +182,11 @@ export default function MainScreen() {
           disabled={!inputText.trim() || sending}
         >
           {sending ? (
-            <ActivityIndicator color="#fff" size="small" />
+            <ActivityIndicator 
+              color="#fff" 
+              size="small" 
+              testID="activity-indicator"
+            />
           ) : (
             <Text style={styles.sendButtonText}>Send</Text>
           )}

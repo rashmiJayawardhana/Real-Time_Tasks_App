@@ -1,6 +1,6 @@
 // app/src/services/socket.ts
 import { io, Socket } from 'socket.io-client';
-import { API_URL } from './api';
+import { API_URL } from '@env';
 
 let socket: Socket | null = null;
 

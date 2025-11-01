@@ -1,11 +1,7 @@
 // app/src/services/offlineQueue.ts
-/**
- * Offline Message Queue
- * 
- * Stores messages when offline and automatically sends them when back online.
- * This is a bonus feature that demonstrates handling edge cases.
- */
-
+// Offline Message Queue
+// Stores messages when offline and automatically sends them when back online.
+ 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 

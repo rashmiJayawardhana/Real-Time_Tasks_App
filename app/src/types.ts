@@ -13,7 +13,7 @@ export interface Message {
 }
 
 export interface AppState {
-  user: User | null;
+  user: User | null;  
   messages: Message[];
   loading: boolean;
   sending: boolean;
