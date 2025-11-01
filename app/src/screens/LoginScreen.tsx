@@ -12,6 +12,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { setUser } from '../store/messagesSlice';
 import { api } from '../services/api';
+import { saveUser } from '../services/storage';
 
 export default function LoginScreen({ navigation }: any) {
   const [name, setName] = useState('');
@@ -28,6 +29,7 @@ export default function LoginScreen({ navigation }: any) {
     try {
       const user = await api.createUser(name.trim());
       dispatch(setUser(user));
+      await saveUser(user);
       navigation.replace('Main');
     } catch (error) {
       Alert.alert('Error', 'Failed to create user. Please try again.');
